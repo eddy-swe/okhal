@@ -1,0 +1,76 @@
+# .gitignore for okhal project
+
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime / process files
+*.pid
+*.seed
+
+# Environment files (contain secrets)
+.env
+.env.*.local
+.env.local
+client/.env
+api/.env
+supabase/.env
+
+# Build output
+dist/
+build/
+out/
+client/dist/
+
+# Vite / bundler caches
+.vite/
+client/.vite/
+.parcel-cache/
+.cache/
+
+# Coverage and test output
+coverage/
+.nyc_output/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# IDE/editor files
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Supabase local / cache files (keep migrations in repo)
+supabase/.cache/
+supabase/.temp/
+supabase/.local/
+
+# Security / certs
+*.pem
+*.key
+*.crt
+*.p12
+
+# Misc
+*.tgz
+*.zip
+coverage-final.json
+
+# Keep lockfiles and manifest files committed (do not ignore package-lock.json or pnpm-lock.yaml by default)

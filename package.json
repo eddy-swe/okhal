@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cd client && npm run dev",
-    "build": "cd client && npm run build"
+    "dev":        "concurrently -n API,CLIENT -c green,cyan \"node dev-server.js\" \"cd client && npm run dev\"",
+    "dev:api":    "node dev-server.js",
+    "dev:client": "cd client && npm run dev",
+    "build":      "cd client && npm run build",
+    "lint":       "cd client && npm run lint"
   },
-  "dependencies": {
-    "react-scripts": "^5.0.1"
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

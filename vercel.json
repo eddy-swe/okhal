@@ -1,8 +1,7 @@
 {
-  "installCommand": "cd client && npm install",
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
-  "devCommand": "cd client && npm run dev",
+  "devCommand": "cd client && npm run dev -- --port 3001",
   "framework": null,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },

@@ -3,8 +3,8 @@
 // Pattern: every file in /api exports a default handler(req, res)
 // This is NOT Express — you don't call app.listen() or app.get()
 
-export default function handler(req, res) {
-  // Always handle OPTIONS for CORS preflight
+// api/health.js
+module.exports = function handler(req, res) {
   if (req.method === 'OPTIONS') {
     return res.status(204).end()
   }

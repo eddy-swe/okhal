@@ -75,3 +75,4 @@ coverage-final.json
 
 # Keep lockfiles and manifest files committed (do not ignore package-lock.json or pnpm-lock.yaml by default)
 .vercel
+.env*.local

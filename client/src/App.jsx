@@ -1,39 +1,76 @@
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider }                    from '@/context/AuthContext'
+import { ProtectedRoute, StaffRoute }      from '@/components/ProtectedRoute'
+import Navbar                              from '@/components/Navbar'
+import LoginPage                           from '@/pages/LoginPage'
+import RegisterPage                        from '@/pages/RegisterPage'
 
-function Home() {
+// ── Placeholder pages (replaced in later phases) ──────
+function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="text-center max-w-md px-6">
-        {/* Decorative circle */}
-        <div className="mx-auto mb-6 w-24 h-24 rounded-full bg-terracotta-500 flex items-center justify-center shadow-lg">
+    <div className="min-h-[calc(100vh-4rem)] bg-earth-50 flex items-center justify-center px-4">
+      <div className="text-center max-w-md">
+        <div className="mx-auto mb-6 w-24 h-24 rounded-full bg-terracotta-500
+                        flex items-center justify-center shadow-lg">
           <span className="text-white text-4xl font-display font-bold">O</span>
         </div>
-
-        <h1 className="text-5xl font-display font-bold text-inkwood mb-3">
-          Okhal
-        </h1>
-        <p className="text-earth-600 text-lg mb-2 font-body">
-          Kenyan &amp; Ethiopian Fusion
-        </p>
-        <p className="text-earth-400 text-sm font-body mb-8">
-          Phase 1 scaffold — working ✓
-        </p>
-
-        <a
-          href="/api/health"
-          className="btn-primary inline-block"
-        >
-          Ping API →
-        </a>
+        <h1 className="text-5xl font-display font-bold text-inkwood mb-3">Okhal</h1>
+        <p className="text-earth-500 text-lg mb-8 font-body">Kenyan &amp; Ethiopian Fusion</p>
+        <Link to="/menu" className="btn-primary inline-block">Explore the menu →</Link>
       </div>
     </div>
   )
 }
 
+function Placeholder({ label }) {
+  return (
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
+      <p className="text-earth-400 font-body">{label}</p>
+    </div>
+  )
+}
+
+function NotFound() {
+  return (
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center text-center px-4">
+      <div>
+        <h2 className="text-3xl font-display font-bold text-inkwood mb-3">Page not found</h2>
+        <a href="/" className="text-terracotta-500 hover:underline font-body">← Go home</a>
+      </div>
+    </div>
+  )
+}
+// ──────────────────────────────────────────────────────
+
+import { Link } from 'react-router-dom'
+
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
+    <AuthProvider>
+      <Navbar />
+      <Routes>
+        {/* Public */}
+        <Route path="/"         element={<HomePage />} />
+        <Route path="/login"    element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/menu"     element={<Placeholder label="Menu — coming in Phase 4" />} />
+
+        {/* Protected: logged-in customers */}
+        <Route path="/orders/:id" element={
+          <ProtectedRoute>
+            <Placeholder label="Order tracking — coming in Phase 7" />
+          </ProtectedRoute>
+        } />
+
+        {/* Protected: staff only */}
+        <Route path="/staff" element={
+          <StaffRoute>
+            <Placeholder label="Staff dashboard — coming in Phase 8" />
+          </StaffRoute>
+        } />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AuthProvider>
   )
 }

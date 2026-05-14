@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/utils/supabaseClient'
 
-const AuthContext = createContext(null)
+export const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [session, setSession]   = useState(null)
@@ -53,15 +53,27 @@ export function AuthProvider({ children }) {
   // ── Auth actions ──────────────────────────────────
 
   async function signUp({ email, password, fullName }) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName },   // stored in auth.users.raw_user_meta_data
-      },
-    })
-    return { data, error }
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { full_name: fullName } },
+  })
+
+  if (error) return { data, error }
+
+  // Belt-and-suspenders: manually write the profile row.
+  // The trigger does this too — ON CONFLICT DO NOTHING makes both safe.
+  if (data.user) {
+    await supabase.from('users').upsert({
+      id:        data.user.id,
+      email:     data.user.email,
+      full_name: fullName,
+      role:      'customer',
+    }, { onConflict: 'id' })
   }
+
+  return { data, error: null }
+}
 
   async function signIn({ email, password }) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -72,10 +84,11 @@ export function AuthProvider({ children }) {
   }
 
   async function signOut() {
-    await supabase.auth.signOut()
-    setSession(null)
-    setProfile(null)
-  }
+    const { error } = await supabase.auth.signOut()
+    if (error) console.error('Sign out error:', error.message)
+    // Don't manually set state here.
+    // onAuthStateChange fires immediately and sets session + profile to null.
+}
 
   // ── Exposed value ─────────────────────────────────
 
@@ -112,9 +125,9 @@ function AuthLoadingScreen() {
   )
 }
 
-// Custom hook — throws if used outside AuthProvider
-export function useAuth() {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used inside <AuthProvider>')
-  return ctx
-}
+// // Custom hook — throws if used outside AuthProvider
+// export function useAuth() {
+//   const ctx = useContext(AuthContext)
+//   if (!ctx) throw new Error('useAuth must be used inside <AuthProvider>')
+//   return ctx
+// }

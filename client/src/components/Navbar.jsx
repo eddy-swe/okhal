@@ -1,14 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '@/context/AuthContext'
+import { Link } from 'react-router-dom'
+// import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function Navbar() {
   const { user, profile, isStaff, signOut } = useAuth()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   async function handleSignOut() {
-    await signOut()
-    navigate('/')
-  }
+  await signOut()
+  window.location.href = '/'   // hard redirect — cleans up any stale state
+}
 
   return (
     <nav className="bg-white border-b border-earth-100 sticky top-0 z-50 shadow-sm">

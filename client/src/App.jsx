@@ -1,11 +1,10 @@
-import { Routes, Route } from 'react-router-dom'
-import { AuthProvider }                    from '@/context/AuthContext'
-import { ProtectedRoute, StaffRoute }      from '@/components/ProtectedRoute'
-import Navbar                              from '@/components/Navbar'
-import LoginPage                           from '@/pages/LoginPage'
-import RegisterPage                        from '@/pages/RegisterPage'
+import { Link, Routes, Route } from 'react-router-dom'
+import { AuthProvider }                from '@/context/AuthContext'
+import { ProtectedRoute, StaffRoute }  from '@/components/ProtectedRoute'
+import Navbar                          from '@/components/Navbar'
+import LoginPage                       from '@/pages/LoginPage'
+import RegisterPage                    from '@/pages/RegisterPage'
 
-// ── Placeholder pages (replaced in later phases) ──────
 function HomePage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-earth-50 flex items-center justify-center px-4">
@@ -40,29 +39,23 @@ function NotFound() {
     </div>
   )
 }
-// ──────────────────────────────────────────────────────
-
-import { Link } from 'react-router-dom'
 
 export default function App() {
   return (
     <AuthProvider>
       <Navbar />
       <Routes>
-        {/* Public */}
         <Route path="/"         element={<HomePage />} />
         <Route path="/login"    element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/menu"     element={<Placeholder label="Menu — coming in Phase 4" />} />
 
-        {/* Protected: logged-in customers */}
         <Route path="/orders/:id" element={
           <ProtectedRoute>
             <Placeholder label="Order tracking — coming in Phase 7" />
           </ProtectedRoute>
         } />
 
-        {/* Protected: staff only */}
         <Route path="/staff" element={
           <StaffRoute>
             <Placeholder label="Staff dashboard — coming in Phase 8" />

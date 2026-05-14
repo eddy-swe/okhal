@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 
 function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-earth-50">
+    <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="text-center max-w-md px-6">
         {/* Decorative circle */}
         <div className="mx-auto mb-6 w-24 h-24 rounded-full bg-terracotta-500 flex items-center justify-center shadow-lg">
@@ -19,7 +19,7 @@ function Home() {
           Phase 1 scaffold — working ✓
         </p>
 
-        
+        <a
           href="/api/health"
           className="btn-primary inline-block"
         >

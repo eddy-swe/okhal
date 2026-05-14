@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev":   "vercel dev",
-    "build": "cd client && npm run build",
-    "lint":  "cd client && npm run lint"
+    "dev": "cd client && npm run dev",
+    "build": "cd client && npm run build"
+  },
+  "dependencies": {
+    "react-scripts": "^5.0.1"
   }
 }

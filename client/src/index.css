@@ -1,21 +1,66 @@
+@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  /* Terracotta */
+  --color-terracotta-50:  #fdf3ef;
+  --color-terracotta-100: #fbe0d3;
+  --color-terracotta-200: #f6bfa7;
+  --color-terracotta-300: #ef9572;
+  --color-terracotta-400: #e56a42;
+  --color-terracotta-500: #d94f24;
+  --color-terracotta-600: #c03d18;
+  --color-terracotta-700: #9e3016;
+  --color-terracotta-800: #7f2918;
+  --color-terracotta-900: #672518;
+
+  /* Savanna */
+  --color-savanna-50:  #f6f7f0;
+  --color-savanna-100: #eaeddc;
+  --color-savanna-200: #d5dcbb;
+  --color-savanna-300: #b7c48f;
+  --color-savanna-400: #98aa66;
+  --color-savanna-500: #7a9147;
+  --color-savanna-600: #5f7237;
+  --color-savanna-700: #4a592c;
+  --color-savanna-800: #3c4726;
+  --color-savanna-900: #333d23;
+
+  /* Earth */
+  --color-earth-100: #f2ede4;
+  --color-earth-200: #e3d8c7;
+  --color-earth-300: #cdbda2;
+  --color-earth-400: #b49d7c;
+  --color-earth-500: #9d8260;
+  --color-earth-600: #8a6e4f;
+  --color-earth-700: #735a42;
+  --color-earth-800: #5f4a39;
+  --color-earth-900: #4f3e31;
+
+  /* Inkwood */
+  --color-inkwood: #1c1410;
+
+  /* Fonts */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Border radius overrides */
+  --radius-xl:  0.875rem;
+  --radius-2xl: 1.25rem;
+}
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
 
   body {
-    @apply bg-earth-50 text-inkwood;
+    @apply bg-gray-50 text-inkwood;
   }
 
   h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: var(--font-display);
   }
 }
 
@@ -27,7 +72,7 @@
   }
 
   .btn-secondary {
-    @apply bg-earth-100 hover:bg-earth-200 text-inkwood font-medium
+    @apply bg-gray-100 hover:bg-gray-200 text-inkwood font-medium
            px-5 py-2.5 rounded-xl transition-colors duration-200;
   }
 

@@ -35,7 +35,6 @@ export default {
         },
         // Warm neutrals
         earth: {
-          50:  '#faf8f5',
           100: '#f2ede4',
           200: '#e3d8c7',
           300: '#cdbda2',
